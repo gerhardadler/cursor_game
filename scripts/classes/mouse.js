@@ -6,8 +6,22 @@ export class Mouse {
   #startPosition = new Vector2D(0, 0);
   #bullets = [];
 
-  constructor(app) {
-    this.app = app;
+  constructor(world) {
+    this.app = world.app;
+
+    this.app.view.addEventListener("mousemove", (e) => {
+      this.position.x = e.clientX - this.app.view.getBoundingClientRect().left;
+      this.position.y = e.clientY - this.app.view.getBoundingClientRect().top;
+    });
+
+    this.app.view.addEventListener("mousedown", (e) => {
+      console.log("click");
+      this.onClick();
+    });
+    this.app.view.addEventListener("mouseup", (e) => {
+      console.log("release");
+      this.onRelease();
+    });
   }
 
   updateMousePosition(newMousePosition) {

@@ -49,14 +49,14 @@ class Enemy {
 
 export class EnemySpawner {
   timePassed = 0;
-  minSpawnDelay = 2;
-  maxSpawnDelay = 2;
-  spawnDelay = 2;
+  minSpawnDelay = 100;
+  maxSpawnDelay = 300;
+  spawnDelay = 300;
 
-  constructor(app, mousePosition, enemies) {
-    this.app = app;
-    this.mousePosition = mousePosition;
-    this.enemies = enemies;
+  constructor(world) {
+    this.app = world.app;
+    this.mousePosition = world.mouse.position;
+    this.enemies = [];
   }
 
   tick(delta) {
@@ -73,6 +73,9 @@ export class EnemySpawner {
       );
       this.timePassed = 0;
       this.newSpawnDelay();
+    }
+    for (const enemy of this.enemies) {
+      enemy.tick(delta);
     }
   }
 
