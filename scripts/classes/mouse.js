@@ -4,22 +4,23 @@ import { Bullet } from "./bullet.js";
 export class Mouse {
   position = new Vector2D(0, 0);
   #startPosition = new Vector2D(0, 0);
-  #bullets = [];
+  bullets = [];
 
   constructor(world) {
-    this.app = world.app;
+    this.world = world;
 
-    this.app.view.addEventListener("mousemove", (e) => {
-      this.position.x = e.clientX - this.app.view.getBoundingClientRect().left;
-      this.position.y = e.clientY - this.app.view.getBoundingClientRect().top;
+    this.world.app.view.addEventListener("mousemove", (e) => {
+      this.position.x =
+        e.clientX - this.world.app.view.getBoundingClientRect().left;
+      this.position.y =
+        e.clientY - this.world.app.view.getBoundingClientRect().top;
     });
 
-    this.app.view.addEventListener("mousedown", (e) => {
+    this.world.app.view.addEventListener("mousedown", (e) => {
       console.log("click");
       this.onClick();
     });
-    this.app.view.addEventListener("mouseup", (e) => {
-      console.log("release");
+    this.world.app.view.addEventListener("mouseup", (e) => {
       this.onRelease();
     });
   }
@@ -35,16 +36,17 @@ export class Mouse {
   onRelease() {
     const shootVector = this.#startPosition.subtract(this.position).normalize();
     const distance = this.#startPosition.distance(this.position);
-    console.log(this.#startPosition);
-    console.log(this.position);
-    console.log(shootVector);
-    this.#bullets.push(
-      new Bullet(this.app, this.position, shootVector, distance / 20)
+    const speed = distance / 20;
+    if (speed < 2) {
+      return;
+    }
+    this.bullets.push(
+      new Bullet(this.world, this.position, shootVector, speed)
     );
   }
 
   tick(delta) {
-    for (const bullet of this.#bullets) {
+    for (const bullet of this.bullets) {
       bullet.tick(delta);
     }
   }

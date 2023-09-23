@@ -1,12 +1,15 @@
+import { isColliding } from "../functions/colliding.js";
+
 export class Bullet {
-  constructor(app, position, directionVector, speed) {
-    this.app = app;
+  #lifetime = 0;
+  constructor(world, position, directionVector, speed) {
+    this.world = world;
 
     this.sprite = PIXI.Sprite.from("images/ørjam.jpg");
     this.sprite.anchor.set(0.5);
     this.sprite.width = 10;
     this.sprite.height = 10;
-    this.app.stage.addChild(this.sprite);
+    this.world.app.stage.addChild(this.sprite);
 
     this.position = position;
     this.directionVector = directionVector;
@@ -14,10 +17,32 @@ export class Bullet {
   }
 
   tick(delta) {
+    this.#lifetime += delta;
+    if (this.#lifetime > 500) {
+      this.kill();
+      return;
+    }
     this.position = this.position.add(
       this.directionVector.multiply(this.speed * delta)
     );
+
+    for (const enemy of this.world.enemies) {
+      if (isColliding(this.sprite, enemy.sprite)) {
+        enemy.kill();
+      }
+    }
+
     this.sprite.x = this.position.x;
     this.sprite.y = this.position.y;
+  }
+
+  getIndex() {
+    return this.world.mouse.bullets.indexOf(this);
+  }
+
+  kill() {
+    this.world.app.stage.removeChild(this.sprite);
+    this.sprite.destroy();
+    this.world.mouse.bullets.splice(this.getIndex(), 1);
   }
 }

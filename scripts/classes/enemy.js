@@ -1,27 +1,27 @@
 import { Vector2D } from "./vector.js";
 
 class Enemy {
-  constructor(app, mousePosition, position, speed, enemies) {
-    this.app = app;
+  constructor(world, position, speed) {
+    this.world = world;
     this.sprite = PIXI.Sprite.from("images/ørjam.jpg");
     this.sprite.anchor.set(0.5);
     this.sprite.width = 20;
     this.sprite.height = 20;
-    this.app.stage.addChild(this.sprite);
+    this.world.app.stage.addChild(this.sprite);
 
-    this.mousePosition = mousePosition;
     this.position = position;
     this.speed = speed;
-    this.enemies = enemies;
     this.separationDistance = 40;
   }
 
   tick(delta) {
-    const mouseVector = this.mousePosition.subtract(this.position).normalize();
+    const mouseVector = this.world.mouse.position
+      .subtract(this.position)
+      .normalize();
 
     // Calculate separation vector from other enemies
     let separationVector = new Vector2D(0, 0); // Create a Vector class to represent vectors
-    for (const enemy of this.enemies) {
+    for (const enemy of this.world.enemies) {
       if (enemy !== this) {
         const distance = this.position.distance(enemy.position);
         if (distance < this.separationDistance) {
@@ -45,36 +45,36 @@ class Enemy {
     this.sprite.x = this.position.x;
     this.sprite.y = this.position.y;
   }
+
+  getIndex() {
+    return this.world.enemies.indexOf(this);
+  }
+
+  kill() {
+    this.world.app.stage.removeChild(this.sprite);
+    this.sprite.destroy();
+    this.world.enemies.splice(this.getIndex(), 1);
+  }
 }
 
 export class EnemySpawner {
   timePassed = 0;
   minSpawnDelay = 100;
   maxSpawnDelay = 300;
-  spawnDelay = 300;
+  spawnDelay = 0;
 
   constructor(world) {
-    this.app = world.app;
-    this.mousePosition = world.mouse.position;
-    this.enemies = [];
+    this.world = world;
   }
 
   tick(delta) {
     this.timePassed += delta;
     if (this.timePassed > this.spawnDelay) {
-      this.enemies.push(
-        new Enemy(
-          this.app,
-          this.mousePosition,
-          new Vector2D(100, 20),
-          1,
-          this.enemies
-        )
-      );
+      this.world.enemies.push(new Enemy(this.world, new Vector2D(100, 20), 1));
       this.timePassed = 0;
       this.newSpawnDelay();
     }
-    for (const enemy of this.enemies) {
+    for (const enemy of this.world.enemies) {
       enemy.tick(delta);
     }
   }

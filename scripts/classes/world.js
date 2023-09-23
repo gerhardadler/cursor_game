@@ -5,6 +5,7 @@ export class World {
   constructor(app) {
     this.app = app;
     this.mouse = new Mouse(this);
+    this.enemies = [];
     this.enemySpawner = new EnemySpawner(this);
   }
   tick(delta) {
