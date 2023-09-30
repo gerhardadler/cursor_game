@@ -1,4 +1,5 @@
 import { Vector2D } from "./vector.js";
+import { isColliding } from "../functions/colliding.js";
 
 class Enemy {
   constructor(world, position, speed) {
@@ -47,6 +48,12 @@ class Enemy {
 
     this.sprite.x = this.position.x;
     this.sprite.y = this.position.y;
+
+    for (const bullet of this.world.mouse.bullets) {
+      if (isColliding(this.sprite, bullet.sprite)) {
+        this.kill();
+      }
+    }
   }
 
   getIndex() {

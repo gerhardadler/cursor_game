@@ -1,5 +1,3 @@
-import { isColliding } from "../functions/colliding.js";
-
 export class Bullet {
   #lifetime = 0;
   constructor(world, position, directionVector, speed) {
@@ -25,12 +23,6 @@ export class Bullet {
     this.position = this.position.add(
       this.directionVector.multiply(this.speed * delta)
     );
-
-    for (const enemy of this.world.enemies) {
-      if (isColliding(this.sprite, enemy.sprite)) {
-        enemy.kill();
-      }
-    }
 
     this.sprite.x = this.position.x;
     this.sprite.y = this.position.y;
