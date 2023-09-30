@@ -5,13 +5,14 @@ class Enemy {
     this.world = world;
     this.sprite = PIXI.Sprite.from("images/ørjam.jpg");
     this.sprite.anchor.set(0.5);
-    this.sprite.width = 20;
-    this.sprite.height = 20;
+    this.sprite.width = 40;
+    this.sprite.height = 40;
     this.world.app.stage.addChild(this.sprite);
 
     this.position = position;
     this.speed = speed;
-    this.separationDistance = 40;
+    this.separationDistance = 80;
+    this.followStrength = 50;
   }
 
   tick(delta) {
@@ -36,7 +37,9 @@ class Enemy {
     }
 
     // Combine the mouse-following and separation vectors
-    const combinedVector = mouseVector.add(separationVector).normalize();
+    const combinedVector = mouseVector
+      .add(separationVector.divide(this.followStrength))
+      .normalize();
 
     this.position = this.position.add(
       combinedVector.multiply(this.speed * delta)
@@ -70,7 +73,10 @@ export class EnemySpawner {
   tick(delta) {
     this.timePassed += delta;
     if (this.timePassed > this.spawnDelay) {
-      this.world.enemies.push(new Enemy(this.world, new Vector2D(100, 20), 1));
+      const randomXPos = Math.random() * this.world.size.x;
+      this.world.enemies.push(
+        new Enemy(this.world, new Vector2D(randomXPos, -40), 1)
+      );
       this.timePassed = 0;
       this.newSpawnDelay();
     }

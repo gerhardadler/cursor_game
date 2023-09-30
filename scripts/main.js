@@ -1,15 +1,16 @@
 import { Mouse } from "./classes/mouse.js";
 import { EnemySpawner } from "./classes/enemy.js";
 import { World } from "./classes/world.js";
+import { Vector2D } from "./classes/vector.js";
 
 const app = new PIXI.Application({
-  width: 640,
-  height: 360,
+  width: 600,
+  height: 900,
   antialiasing: true,
 });
 document.body.appendChild(app.view);
 
-const world = new World(app);
+const world = new World(app, new Vector2D(600, 900));
 
 app.ticker.add((delta) => {
   world.tick(delta);
