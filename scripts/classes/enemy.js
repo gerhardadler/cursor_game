@@ -55,6 +55,10 @@ class Enemy {
         return;
       }
     }
+
+    if (isColliding(this.sprite, this.world.mouse.sprite)) {
+      alert("DIE");
+    }
   }
 
   getIndex() {
