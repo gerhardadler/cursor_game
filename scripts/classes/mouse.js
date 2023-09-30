@@ -8,6 +8,11 @@ export class Mouse {
 
   constructor(world) {
     this.world = world;
+    this.sprite = PIXI.Sprite.from("images/ørjam.jpg");
+    this.sprite.anchor.set(0.5);
+    this.sprite.width = 20;
+    this.sprite.height = 20;
+    this.world.app.stage.addChild(this.sprite);
 
     this.world.app.view.addEventListener("mousemove", (e) => {
       this.position.x =
@@ -46,6 +51,9 @@ export class Mouse {
   }
 
   tick(delta) {
+    this.sprite.x = this.position.x;
+    this.sprite.y = this.position.y;
+
     for (const bullet of this.bullets) {
       bullet.tick(delta);
     }
