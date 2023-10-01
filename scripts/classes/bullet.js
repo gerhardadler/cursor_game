@@ -1,3 +1,5 @@
+import * as PIXI from "pixi.js";
+
 export class Bullet {
   #lifetime = 0;
   constructor(world, position, directionVector, speed) {

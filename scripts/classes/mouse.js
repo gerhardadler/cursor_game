@@ -1,3 +1,4 @@
+import * as PIXI from "pixi.js";
 import { Vector2D } from "./vector.js";
 import { Bullet } from "./bullet.js";
 

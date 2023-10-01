@@ -1,0 +1,25 @@
+{
+  "dependencies": {
+    "@pixi/ui": "^0.9.0",
+    "images": "^3.2.4",
+    "parcel-bundler": "^1.12.5",
+    "pixi.js": "^7.3.1"
+  },
+  "name": "cursor_game",
+  "description": "yo",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gerhardadler/cursor_game.git"
+  },
+  "author": "Gerhard Adler Skartveit",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gerhardadler/cursor_game/issues"
+  },
+  "homepage": "https://github.com/gerhardadler/cursor_game#readme"
+}
