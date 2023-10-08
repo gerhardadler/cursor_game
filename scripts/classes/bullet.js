@@ -19,7 +19,7 @@ export class Bullet {
 
   tick(delta) {
     this.#lifetime += delta;
-    if (this.#lifetime > 500) {
+    if (this.#lifetime > 7000) {
       this.kill();
       return;
     }

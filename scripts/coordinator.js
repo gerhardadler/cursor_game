@@ -21,8 +21,8 @@ export default class Coordinator {
     body.appendChild(this.app.view);
 
     // Add a handler for the updates
-    this.app.ticker.add((delta) => {
-      this.update(delta);
+    this.app.ticker.add(() => {
+      this.update(this.app.ticker.deltaMS);
     });
 
     // Load the menu scene initially; scenes get a reference

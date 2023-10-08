@@ -18,11 +18,13 @@ export class Level {
 }
 
 const levels = {
-  0: new Level(200, 300),
-  10: new Level(160, 260),
-  20: new Level(140, 240),
-  30: new Level(130, 230),
-  50: new Level(120, 220),
-  70: new Level(100, 200),
-  100: new Level(80, 180),
+  0: new Level(1000, 1500),
+  10: new Level(800, 1300),
+  20: new Level(700, 1200),
+  30: new Level(600, 1100),
+  50: new Level(500, 1000),
+  70: new Level(400, 900),
+  100: new Level(300, 800),
+  130: new Level(200, 700),
+  160: new Level(200, 600),
 };

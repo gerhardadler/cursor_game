@@ -42,8 +42,8 @@ export class Mouse {
   onRelease() {
     const shootVector = this.#startPosition.subtract(this.position).normalize();
     const distance = this.#startPosition.distance(this.position);
-    const speed = distance / 20;
-    if (speed < 2) {
+    const speed = distance / 200;
+    if (speed < 0.2) {
       return;
     }
     this.bullets.push(
