@@ -11,7 +11,7 @@ export default class MenuScene {
 
   async onStart(container) {
     // Game title text
-    const titleText = new PIXI.Text("Hilow", {
+    const titleText = new PIXI.Text("Geim", {
       fontFamily: "Roboto Mono",
       fill: 0x000000,
       fontSize: 62,
