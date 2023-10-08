@@ -19,8 +19,7 @@ export class Mouse {
     this.#startPosition = this.position.copy();
 
     this.world.app.view.addEventListener("mousemove", (e) => {
-      this.position.x += e.movementX;
-      this.position.y += e.movementY;
+      this.move(new Vector2D(e.movementX, e.movementY));
     });
 
     this.world.app.view.addEventListener("mousedown", async (e) => {
@@ -31,8 +30,9 @@ export class Mouse {
     });
   }
 
-  updateMousePosition(newMousePosition) {
-    this.position = newMousePosition;
+  move(changeVector) {
+    this.position = this.position.add(changeVector);
+    this.position = this.position.clamp(new Vector2D(0, 0), this.world.size);
   }
 
   onClick() {

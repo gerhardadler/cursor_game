@@ -57,6 +57,12 @@ export class Vector2D {
     return new Vector2D(this.x, this.y);
   }
 
+  clamp(minVector, maxVector) {
+    const clampedX = Math.min(Math.max(this.x, minVector.x), maxVector.x);
+    const clampedY = Math.min(Math.max(this.y, minVector.y), maxVector.y);
+    return new Vector2D(clampedX, clampedY);
+  }
+
   static vectorFromRadian(radian) {
     return new Vector2D(Math.cos(radian), Math.sin(radian));
   }
