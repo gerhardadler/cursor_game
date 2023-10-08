@@ -1,15 +1,16 @@
 import * as PIXI from "pixi.js";
+import orjam from "/images/ørjam.jpg";
 
 export class Bullet {
   #lifetime = 0;
   constructor(world, position, directionVector, speed) {
     this.world = world;
 
-    this.sprite = PIXI.Sprite.from("images/ørjam.jpg");
+    this.sprite = PIXI.Sprite.from(orjam);
     this.sprite.anchor.set(0.5);
     this.sprite.width = 10;
     this.sprite.height = 10;
-    this.world.app.stage.addChild(this.sprite);
+    this.world.container.addChild(this.sprite);
 
     this.position = position;
     this.directionVector = directionVector;
@@ -35,7 +36,7 @@ export class Bullet {
   }
 
   kill() {
-    this.world.app.stage.removeChild(this.sprite);
+    this.world.container.removeChild(this.sprite);
     this.sprite.destroy();
     this.world.mouse.bullets.splice(this.getIndex(), 1);
   }

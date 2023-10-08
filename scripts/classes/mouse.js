@@ -1,6 +1,7 @@
 import * as PIXI from "pixi.js";
 import { Vector2D } from "./vector.js";
 import { Bullet } from "./bullet.js";
+import orjam from "/images/ørjam.jpg";
 
 export class Mouse {
   bullets = [];
@@ -8,11 +9,11 @@ export class Mouse {
 
   constructor(world) {
     this.world = world;
-    this.sprite = PIXI.Sprite.from("images/ørjam.jpg");
+    this.sprite = PIXI.Sprite.from(orjam);
     this.sprite.anchor.set(0.5);
     this.sprite.width = 20;
     this.sprite.height = 20;
-    this.world.app.stage.addChild(this.sprite);
+    this.world.container.addChild(this.sprite);
 
     this.position = this.world.size.divide(2);
     this.#startPosition = this.position.copy();
@@ -48,10 +49,6 @@ export class Mouse {
     this.bullets.push(
       new Bullet(this.world, this.position, shootVector, speed)
     );
-  }
-
-  getIsLocked() {
-    return document.pointerLockElement === this.world.app.view;
   }
 
   tick(delta) {

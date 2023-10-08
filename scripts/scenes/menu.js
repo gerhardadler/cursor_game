@@ -1,8 +1,9 @@
 import * as PIXI from "pixi.js";
 import { Button } from "@pixi/ui";
-import orjam from "/images/ørjam.jpg"; // Adjust the path to your image
+import orjam from "/images/ørjam.jpg";
+import GameScene from "./game.js";
 
-export default class Menu {
+export default class MenuScene {
   constructor(coordinator) {
     this.app = coordinator.app;
     this.coordinator = coordinator;
@@ -22,10 +23,10 @@ export default class Menu {
     button.view.x = 35;
     button.view.y = 150;
 
-    button.onPress.connect(() => console.log("onPress"));
+    button.onPress.connect(() =>
+      this.coordinator.gotoScene(new GameScene(this.coordinator))
+    );
 
-    // Finally we add these elements to the new
-    // container provided by the coordinator
     container.addChild(titleText);
     container.addChild(button.view);
   }

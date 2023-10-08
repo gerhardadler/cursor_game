@@ -1,4 +1,4 @@
-import Menu from "./scenes/menu.js";
+import MenuScene from "./scenes/menu.js";
 import * as PIXI from "pixi.js";
 
 export default class Coordinator {
@@ -27,7 +27,7 @@ export default class Coordinator {
 
     // Load the menu scene initially; scenes get a reference
     // back to the coordinator so they can trigger transitions
-    this.gotoScene(new Menu(this));
+    this.gotoScene(new MenuScene(this));
   }
 
   // Replace the current scene with the new one
