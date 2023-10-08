@@ -1,6 +1,6 @@
 import * as PIXI from "pixi.js";
 import { Button } from "@pixi/ui";
-import orjam from "/images/ørjam.jpg";
+import orjam from "/src/images/ørjam.jpg";
 import GameScene from "./game.js";
 
 export default class MenuScene {

@@ -1,8 +1,5 @@
-import * as PIXI from "pixi.js";
-import { Button } from "@pixi/ui";
-import orjam from "/images/ørjam.jpg";
-import { World } from "/scripts/classes/world.js";
-import { Vector2D } from "/scripts/classes/vector.js";
+import { World } from "/src/scripts/classes/world.js";
+import { Vector2D } from "/src/scripts/classes/vector.js";
 
 export default class WorldScene {
   WORLD;

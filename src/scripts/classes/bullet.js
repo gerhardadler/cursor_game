@@ -1,5 +1,5 @@
 import * as PIXI from "pixi.js";
-import orjam from "/images/ørjam.jpg";
+import orjam from "/src/images/ørjam.jpg";
 
 export class Bullet {
   #lifetime = 0;

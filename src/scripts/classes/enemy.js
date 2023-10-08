@@ -1,7 +1,7 @@
 import * as PIXI from "pixi.js";
 import { Vector2D } from "./vector.js";
 import { isColliding } from "../functions/colliding.js";
-import orjam from "/images/ørjam.jpg";
+import orjam from "/src/images/ørjam.jpg";
 
 class Enemy {
   constructor(world, position, speed) {

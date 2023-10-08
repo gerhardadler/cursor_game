@@ -1,7 +1,7 @@
 import * as PIXI from "pixi.js";
 import { Vector2D } from "./vector.js";
 import { Bullet } from "./bullet.js";
-import orjam from "/images/ørjam.jpg";
+import orjam from "/src/images/ørjam.jpg";
 
 export class Mouse {
   bullets = [];
