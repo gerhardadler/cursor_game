@@ -77,8 +77,6 @@ class Enemy {
 
 export class EnemySpawner {
   timePassed = 0;
-  minSpawnDelay = 100;
-  maxSpawnDelay = 300;
   spawnDelay = 0;
 
   constructor(world) {
@@ -90,7 +88,7 @@ export class EnemySpawner {
     if (this.timePassed > this.spawnDelay) {
       const randomXPos = Math.random() * this.world.size.x;
       this.world.enemies.push(
-        new Enemy(this.world, new Vector2D(randomXPos, -40), 1)
+        new Enemy(this.world, new Vector2D(randomXPos, -40), 3)
       );
       this.timePassed = 0;
       this.newSpawnDelay();
@@ -101,8 +99,12 @@ export class EnemySpawner {
   }
 
   newSpawnDelay() {
+    console.log(this.world.level.minEnemySpawnDelay);
+    console.log(this.world.level.maxEnemySpawnDelay);
     this.spawnDelay =
-      this.minSpawnDelay +
-      Math.random() * (this.maxSpawnDelay - this.minSpawnDelay);
+      this.world.level.minEnemySpawnDelay +
+      Math.random() *
+        (this.world.level.maxEnemySpawnDelay -
+          this.world.level.minEnemySpawnDelay);
   }
 }

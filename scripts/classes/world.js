@@ -1,6 +1,7 @@
 import * as PIXI from "pixi.js";
 import { EnemySpawner } from "./enemy.js";
 import { Mouse } from "./mouse.js";
+import { Level } from "./levels.js";
 
 export class World {
   #points = 0;
@@ -20,6 +21,7 @@ export class World {
     this.mouse = new Mouse(this);
     this.enemies = [];
     this.enemySpawner = new EnemySpawner(this);
+    this.level = Level.fromPoints(this.#points);
 
     this.pointsText = new PIXI.Text("0", {
       fontFamily: "Roboto Mono",
@@ -38,6 +40,7 @@ export class World {
   }
 
   onPointsChange() {
+    this.level = Level.fromPoints(this.#points);
     this.pointsText.text = this.#points.toString();
     this.pointsText.updateText(false);
   }
