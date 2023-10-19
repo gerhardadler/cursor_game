@@ -27,4 +27,10 @@ const levels = {
   100: new Level(300, 800),
   130: new Level(200, 700),
   160: new Level(200, 600),
+  200: new Level(200, 500),
+  250: new Level(200, 400),
+  300: new Level(150, 400),
+  400: new Level(150, 350),
+  500: new Level(150, 300),
+  700: new Level(150, 250),
 };
