@@ -60,7 +60,7 @@ class Enemy {
     }
 
     if (isColliding(this.sprite, this.world.mouse.sprite)) {
-      alert("DIE");
+      this.world.dieCallback();
     }
   }
 
@@ -99,8 +99,6 @@ export class EnemySpawner {
   }
 
   newSpawnDelay() {
-    console.log(this.world.level.minEnemySpawnDelay);
-    console.log(this.world.level.maxEnemySpawnDelay);
     this.spawnDelay =
       this.world.level.minEnemySpawnDelay +
       Math.random() *

@@ -14,7 +14,7 @@ export class World {
     this.onPointsChange();
   }
 
-  constructor(app, container, size) {
+  constructor(app, container, size, dieCallback) {
     this.app = app;
     this.container = container;
     this.size = size;
@@ -22,6 +22,7 @@ export class World {
     this.enemies = [];
     this.enemySpawner = new EnemySpawner(this);
     this.level = Level.fromPoints(this.#points);
+    this.dieCallback = dieCallback;
 
     this.pointsText = new PIXI.Text("0", {
       fontFamily: "Roboto Mono",
