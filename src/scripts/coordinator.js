@@ -10,10 +10,13 @@ export default class Coordinator {
     // PIXI.settings.RESOLUTION = window.deviePixelRatio || 1;
 
     // The PixiJS application instance
+    const appContainer = document.getElementById("pixi-container");
+
     this.app = new PIXI.Application({
       width: this.WIDTH,
       height: this.HEIGHT,
       autoDensity: true, // Handles high DPI screens
+      view: appContainer,
       backgroundColor: 0x333333,
     });
 

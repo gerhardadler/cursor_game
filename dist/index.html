@@ -2,6 +2,13 @@
 <html lang="no">
 
 <head>
+    <style>
+        .main {
+            display: grid;
+            width: 100vh;
+            place-items: center
+        }
+    </style>
     <title>Cursor Game</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
@@ -9,7 +16,10 @@
 </head>
 
 <body>
-    <script src="main.js"></script>
+    <div class="main">
+        <canvas id="pixi-container"></canvas>
+        <script src="main.js"></script>
+    </div>
 </body>
 
 </html>

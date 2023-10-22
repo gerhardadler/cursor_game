@@ -3,7 +3,7 @@ import { Button } from "@pixi/ui";
 import orjam from "/src/images/ørjam.jpg";
 import MenuScene from "./menu.js";
 
-export default class DeathScreenScene {
+export class DeathScreenScene {
   constructor(coordinator, points) {
     this.app = coordinator.app;
     this.coordinator = coordinator;

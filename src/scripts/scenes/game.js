@@ -1,6 +1,7 @@
+import * as PIXI from "pixi.js";
 import { World } from "/src/scripts/classes/world.js";
 import { Vector2D } from "/src/scripts/classes/vector.js";
-import DeathScreenScene from "./deathScreen";
+import { DeathScreenScene } from "./deathScreen";
 
 export class GameScene {
   WORLD;
