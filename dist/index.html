@@ -3,23 +3,40 @@
 
 <head>
     <style>
+        :root {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
         .main {
+            background-color: #797979;
             display: grid;
-            width: 100vh;
-            place-items: center
+            width: 100vw;
+            height: 100vh;
+            place-items: center;
+        }
+
+        #pixi {
+            display: block;
+            max-width: 90vw;
+            max-height: 90vh;
+            width: auto !important;
+            height: auto !important;
         }
     </style>
     <title>Cursor Game</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
-    <script src="https://kit.fontawesome.com/4891e5aca9.js" crossorigin="anonymous"></script> -->
 </head>
 
 <body>
     <div class="main">
-        <canvas id="pixi-container"></canvas>
-        <script src="main.js"></script>
+        <canvas id="pixi"></canvas>
     </div>
+    <script src="main.js"></script>
 </body>
 
 </html>

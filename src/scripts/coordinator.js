@@ -10,7 +10,7 @@ export default class Coordinator {
     // PIXI.settings.RESOLUTION = window.deviePixelRatio || 1;
 
     // The PixiJS application instance
-    const appContainer = document.getElementById("pixi-container");
+    const appContainer = document.getElementById("pixi");
 
     this.app = new PIXI.Application({
       width: this.WIDTH,
@@ -20,8 +20,7 @@ export default class Coordinator {
       backgroundColor: 0x333333,
     });
 
-    // Add application canvas to body
-    body.appendChild(this.app.view);
+    // appContainer.style
 
     // Add a handler for the updates
     this.app.ticker.add(() => {
