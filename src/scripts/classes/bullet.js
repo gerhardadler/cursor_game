@@ -1,5 +1,5 @@
 import * as PIXI from "pixi.js";
-import orjam from "/src/images/ørjam.jpg";
+import bullet from "/src/images/bullet.png";
 
 export class Bullet {
   #lifetime = 0;
@@ -7,10 +7,8 @@ export class Bullet {
   constructor(world, position, directionVector, speed) {
     this.world = world;
 
-    this.sprite = PIXI.Sprite.from(orjam);
+    this.sprite = PIXI.Sprite.from(bullet);
     this.sprite.anchor.set(0.5);
-    this.sprite.width = 10;
-    this.sprite.height = 10;
     this.world.container.addChild(this.sprite);
 
     this.position = position;
