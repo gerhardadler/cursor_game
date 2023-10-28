@@ -53,7 +53,7 @@ class Enemy {
 
     for (const bullet of this.world.mouse.bullets) {
       if (isColliding(this.sprite, bullet.sprite)) {
-        this.world.points += 1;
+        bullet.addKill();
         this.kill();
         return;
       }

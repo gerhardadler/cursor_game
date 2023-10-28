@@ -3,6 +3,7 @@ import orjam from "/src/images/ørjam.jpg";
 
 export class Bullet {
   #lifetime = 0;
+  #totalKills = 0;
   constructor(world, position, directionVector, speed) {
     this.world = world;
 
@@ -39,5 +40,11 @@ export class Bullet {
     this.world.container.removeChild(this.sprite);
     this.sprite.destroy();
     this.world.mouse.bullets.splice(this.getIndex(), 1);
+  }
+
+  addKill() {
+    this.#totalKills += 1;
+    console.log(this.#totalKills);
+    this.world.points += this.#totalKills;
   }
 }
