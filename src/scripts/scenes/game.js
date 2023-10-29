@@ -52,9 +52,7 @@ export class GameScene {
     this.#container.addChild(this.#killsText);
 
     this.createWorld();
-    await this.app.view.requestPointerLock({
-      unadjustedMovement: true,
-    });
+    await this.app.view.requestPointerLock();
   }
 
   onUpdate(delta) {
