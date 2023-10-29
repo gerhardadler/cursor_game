@@ -86,7 +86,11 @@ export class EnemySpawner {
     if (this.timePassed > this.spawnDelay) {
       const randomXPos = Math.random() * this.world.size.x;
       this.world.enemies.push(
-        new Enemy(this.world, new Vector2D(randomXPos, -40), 0.2)
+        new Enemy(
+          this.world,
+          new Vector2D(randomXPos, -40),
+          this.world.level.enemySpeed
+        )
       );
       this.timePassed = 0;
       this.newSpawnDelay();
