@@ -17,7 +17,7 @@ export default class Coordinator {
       height: this.HEIGHT,
       autoDensity: true, // Handles high DPI screens
       view: appContainer,
-      backgroundColor: 0x333333,
+      backgroundAlpha: 0,
     });
 
     // appContainer.style

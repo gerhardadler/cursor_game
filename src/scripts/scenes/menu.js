@@ -1,6 +1,5 @@
 import * as PIXI from "pixi.js";
 import { Button } from "@pixi/ui";
-import orjam from "/src/images/ørjam.jpg";
 import dodgleHome from "/src/images/home.png";
 import startButton from "/src/images/start_button.png";
 import { GameScene } from "./game.js";

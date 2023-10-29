@@ -2,6 +2,7 @@ import * as PIXI from "pixi.js";
 import { World } from "/src/scripts/classes/world.js";
 import { Vector2D } from "/src/scripts/classes/vector.js";
 import { DeathScreenScene } from "./deathScreen";
+import gameBackground from "/src/images/game.png";
 
 export class GameScene {
   WORLD;
@@ -22,7 +23,10 @@ export class GameScene {
   }
 
   async onStart(container) {
+    const background = PIXI.Sprite.from(gameBackground);
+    container.addChild(background);
     this.container = container;
+
     this.createWorld();
     await this.app.view.requestPointerLock({
       unadjustedMovement: true,
