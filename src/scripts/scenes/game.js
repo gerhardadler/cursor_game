@@ -6,12 +6,16 @@ import gameBackground from "/src/images/game.png";
 
 export class GameScene {
   WORLD;
-  container;
+  #container;
+  #pointsText;
+  #killsText;
   constructor(coordinator) {
     this.app = coordinator.app;
     this.coordinator = coordinator;
 
-    this.dieCallback = this.dieCallback.bind(this);
+    this.die = this.die.bind(this);
+    this.updatePointsText = this.updatePointsText.bind(this);
+    this.updateKillsText = this.updateKillsText.bind(this);
 
     this.app.view.addEventListener("mousedown", (e) => this.lockPointer);
   }
@@ -23,9 +27,29 @@ export class GameScene {
   }
 
   async onStart(container) {
+    this.#container = container;
+
     const background = PIXI.Sprite.from(gameBackground);
-    container.addChild(background);
-    this.container = container;
+
+    this.#pointsText = new PIXI.Text("0", {
+      fontFamily: "Roboto Mono",
+      fill: 0x000000,
+      fontSize: 62,
+    });
+    this.#pointsText.x = 20;
+    this.#pointsText.y = 20;
+
+    this.#killsText = new PIXI.Text("0", {
+      fontFamily: "Roboto Mono",
+      fill: 0x000000,
+      fontSize: 62,
+    });
+    this.#killsText.x = 20;
+    this.#killsText.y = 80;
+
+    this.#container.addChild(background);
+    this.#container.addChild(this.#pointsText);
+    this.#container.addChild(this.#killsText);
 
     this.createWorld();
     await this.app.view.requestPointerLock({
@@ -46,14 +70,16 @@ export class GameScene {
   onFinish() {}
 
   createWorld() {
-    if (this.container === undefined) {
+    if (this.#container === undefined) {
       throw Error("Container can't be undefined");
     }
     this.WORLD = new World(
       this.app,
-      this.container,
+      this.#container,
       new Vector2D(600, 900),
-      this.dieCallback
+      this.updatePointsText,
+      this.updateKillsText,
+      this.die
     );
   }
 
@@ -61,7 +87,17 @@ export class GameScene {
     return document.pointerLockElement === this.app.view;
   }
 
-  dieCallback() {
+  updatePointsText(newPoints) {
+    this.#pointsText.text = newPoints.toString();
+    this.#pointsText.updateText(false);
+  }
+
+  updateKillsText(newKills) {
+    this.#killsText.text = newKills.toString();
+    this.#killsText.updateText(false);
+  }
+
+  die() {
     document.exitPointerLock();
     this.app.view.removeEventListener("mousedown", this.lockPointer);
     this.coordinator.gotoScene(

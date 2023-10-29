@@ -8,41 +8,52 @@ export class World {
   get points() {
     return this.#points;
   }
-
   set points(value) {
     this.#points = value;
     this.onPointsChange();
   }
 
-  constructor(app, container, size, dieCallback) {
+  #kills = 0;
+  get kills() {
+    return this.#kills;
+  }
+  set kills(value) {
+    this.#kills = value;
+    this.onKillsChange();
+  }
+
+  constructor(
+    app,
+    container,
+    size,
+    pointsCallback,
+    killsCallback,
+    dieCallback
+  ) {
     this.app = app;
     this.container = container;
     this.size = size;
     this.mouse = new Mouse(this);
     this.enemies = [];
     this.enemySpawner = new EnemySpawner(this);
-    this.level = Level.fromPoints(this.#points);
+    this.level = Level.fromKills(this.#kills);
+    this.pointsCallback = pointsCallback;
+    this.killsCallback = killsCallback;
     this.dieCallback = dieCallback;
-
-    this.pointsText = new PIXI.Text("0", {
-      fontFamily: "Roboto Mono",
-      fill: 0x000000,
-      fontSize: 62,
-    });
-    this.pointsText.x = 20;
-    this.pointsText.y = 20;
-
-    this.container.addChild(this.pointsText);
   }
 
   tick(delta) {
     this.mouse.tick(delta);
     this.enemySpawner.tick(delta);
+    this.gameDuration += delta;
   }
 
   onPointsChange() {
-    this.level = Level.fromPoints(this.#points);
-    this.pointsText.text = this.#points.toString();
-    this.pointsText.updateText(false);
+    this.pointsCallback(this.#points);
+  }
+
+  onKillsChange() {
+    this.killsCallback(this.#kills);
+    this.level = Level.fromKills(this.#kills);
   }
 }

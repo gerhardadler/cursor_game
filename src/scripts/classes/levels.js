@@ -4,11 +4,11 @@ export class Level {
     this.maxEnemySpawnDelay = maxEnemySpawnDelay;
   }
 
-  static fromPoints(points) {
+  static fromKills(kills) {
     let level;
-    for (const levelPoints in levels) {
-      if (points >= levelPoints) {
-        level = levels[levelPoints];
+    for (const levelKills in levels) {
+      if (kills >= levelKills) {
+        level = levels[levelKills];
       } else {
         break;
       }

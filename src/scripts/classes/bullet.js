@@ -42,7 +42,7 @@ export class Bullet {
 
   addKill() {
     this.#totalKills += 1;
-    console.log(this.#totalKills);
+    this.world.kills += 1;
     this.world.points += this.#totalKills;
   }
 }
