@@ -31,7 +31,7 @@ export class GameScene {
 
     const background = PIXI.Sprite.from(gameBackground);
 
-    this.#pointsText = new PIXI.Text("0", {
+    this.#pointsText = new PIXI.Text("P: 0", {
       fontFamily: "Roboto Mono",
       fill: 0x000000,
       fontSize: 62,
@@ -39,7 +39,7 @@ export class GameScene {
     this.#pointsText.x = 20;
     this.#pointsText.y = 20;
 
-    this.#killsText = new PIXI.Text("0", {
+    this.#killsText = new PIXI.Text("K: 0", {
       fontFamily: "Roboto Mono",
       fill: 0x000000,
       fontSize: 62,
@@ -88,12 +88,12 @@ export class GameScene {
   }
 
   updatePointsText(newPoints) {
-    this.#pointsText.text = newPoints.toString();
+    this.#pointsText.text = "P: " + newPoints.toString();
     this.#pointsText.updateText(false);
   }
 
   updateKillsText(newKills) {
-    this.#killsText.text = newKills.toString();
+    this.#killsText.text = "K: " + newKills.toString();
     this.#killsText.updateText(false);
   }
 
