@@ -1,0 +1,25 @@
+:root {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+.main {
+    background: url("/src/images/background.jpg");
+    background-size: cover;
+    display: grid;
+    width: 100vw;
+    height: 100vh;
+    place-items: center;
+}
+
+#pixi {
+    display: block;
+    max-width: 90vw;
+    max-height: 90vh;
+    width: auto !important;
+    height: auto !important;
+}
