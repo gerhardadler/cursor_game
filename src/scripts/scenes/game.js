@@ -21,9 +21,7 @@ export class GameScene {
   }
 
   lockPointer() {
-    this.app.view.requestPointerLock({
-      unadjustedMovement: true,
-    });
+    this.app.view.requestPointerLock();
   }
 
   async onStart(container) {
@@ -52,7 +50,7 @@ export class GameScene {
     this.#container.addChild(this.#killsText);
 
     this.createWorld();
-    await this.app.view.requestPointerLock();
+    this.lockPointer();
   }
 
   onUpdate(delta) {
