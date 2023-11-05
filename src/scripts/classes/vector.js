@@ -63,6 +63,16 @@ export class Vector2D {
     return new Vector2D(clampedX, clampedY);
   }
 
+  lerp(target, t) {
+    if (t < 0) t = 0;
+    if (t > 1) t = 1;
+
+    const lerpedX = this.x + (target.x - this.x) * t;
+    const lerpedY = this.y + (target.y - this.y) * t;
+
+    return new Vector2D(lerpedX, lerpedY);
+  }
+
   static vectorFromRadian(radian) {
     return new Vector2D(Math.cos(radian), Math.sin(radian));
   }

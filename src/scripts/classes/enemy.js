@@ -4,6 +4,8 @@ import { isColliding } from "../functions/colliding.js";
 import enemy1 from "/src/images/enemy1.png";
 
 class Enemy {
+  #prevDirection = new Vector2D(0.5, 0.5);
+  #lerpFactor = 0.1;
   constructor(world, position, speed) {
     this.world = world;
     this.sprite = PIXI.Sprite.from(enemy1);
@@ -17,6 +19,35 @@ class Enemy {
   }
 
   tick(delta) {
+    const targetDirection = this.getFollowDirection();
+
+    const interpolatedMovement = this.#prevDirection.lerp(
+      targetDirection,
+      this.#lerpFactor
+    );
+    this.position = this.position.add(
+      interpolatedMovement.multiply(this.speed * delta)
+    );
+
+    this.sprite.x = this.position.x;
+    this.sprite.y = this.position.y;
+
+    for (const bullet of this.world.mouse.bullets) {
+      if (isColliding(this.sprite, bullet.sprite)) {
+        bullet.addKill();
+        this.kill();
+        return;
+      }
+    }
+
+    if (isColliding(this.sprite, this.world.mouse.sprite)) {
+      this.world.dieCallback();
+    }
+
+    this.#prevDirection = newDirection;
+  }
+
+  getFollowDirection() {
     const mouseVector = this.world.mouse.position
       .subtract(this.position)
       .normalize();
@@ -38,28 +69,9 @@ class Enemy {
     }
 
     // Combine the mouse-following and separation vectors
-    const combinedVector = mouseVector
+    return mouseVector
       .add(separationVector.divide(this.followStrength))
       .normalize();
-
-    this.position = this.position.add(
-      combinedVector.multiply(this.speed * delta)
-    );
-
-    this.sprite.x = this.position.x;
-    this.sprite.y = this.position.y;
-
-    for (const bullet of this.world.mouse.bullets) {
-      if (isColliding(this.sprite, bullet.sprite)) {
-        bullet.addKill();
-        this.kill();
-        return;
-      }
-    }
-
-    if (isColliding(this.sprite, this.world.mouse.sprite)) {
-      this.world.dieCallback();
-    }
   }
 
   getIndex() {
