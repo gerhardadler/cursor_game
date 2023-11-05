@@ -1,5 +1,5 @@
 import * as PIXI from "pixi.js";
-import { EnemySpawner } from "./enemy.js";
+import { EnemySpawner } from "./enemySpawner.js";
 import { Mouse } from "./mouse.js";
 import { Level } from "./levels.js";
 
