@@ -9,6 +9,7 @@ export class GameScene {
   #container;
   #pointsText;
   #killsText;
+  #levelsText;
   constructor(coordinator) {
     this.app = coordinator.app;
     this.coordinator = coordinator;
@@ -16,6 +17,7 @@ export class GameScene {
     this.die = this.die.bind(this);
     this.updatePointsText = this.updatePointsText.bind(this);
     this.updateKillsText = this.updateKillsText.bind(this);
+    this.updateLevelsText = this.updateLevelsText.bind(this);
 
     this.app.view.addEventListener("mousedown", (e) => this.lockPointer);
   }
@@ -29,25 +31,35 @@ export class GameScene {
 
     const background = PIXI.Sprite.from(gameBackground);
 
-    this.#pointsText = new PIXI.Text("P: 0", {
-      fontFamily: "Roboto Mono",
-      fill: 0x000000,
-      fontSize: 62,
+    this.#pointsText = new PIXI.Text("0", {
+      fontFamily: "sans-serif",
+      fill: 0x4f4f4f,
+      fontSize: 24,
     });
-    this.#pointsText.x = 20;
-    this.#pointsText.y = 20;
+    this.#pointsText.x = 90;
+    this.#pointsText.y = 46;
 
-    this.#killsText = new PIXI.Text("K: 0", {
-      fontFamily: "Roboto Mono",
-      fill: 0x000000,
-      fontSize: 62,
+    this.#killsText = new PIXI.Text("0", {
+      fontFamily: "sans-serif",
+      fill: 0x4f4f4f,
+      fontSize: 24,
     });
-    this.#killsText.x = 20;
-    this.#killsText.y = 80;
+    this.#killsText.x = 228;
+    this.#killsText.y = 46;
+
+    this.#levelsText = new PIXI.Text("1", {
+      fontFamily: "sans-serif",
+      fill: 0x575757,
+      fontSize: 24,
+      fontStyle: "bold",
+    });
+    this.#levelsText.x = 743;
+    this.#levelsText.y = 46;
 
     this.#container.addChild(background);
     this.#container.addChild(this.#pointsText);
     this.#container.addChild(this.#killsText);
+    this.#container.addChild(this.#levelsText);
 
     this.createWorld();
     this.lockPointer();
@@ -75,6 +87,7 @@ export class GameScene {
       new Vector2D(900, 900),
       this.updatePointsText,
       this.updateKillsText,
+      this.updateLevelsText,
       this.die
     );
   }
@@ -84,13 +97,18 @@ export class GameScene {
   }
 
   updatePointsText(newPoints) {
-    this.#pointsText.text = "P: " + newPoints.toString();
+    this.#pointsText.text = newPoints.toString();
     this.#pointsText.updateText(false);
   }
 
   updateKillsText(newKills) {
-    this.#killsText.text = "K: " + newKills.toString();
+    this.#killsText.text = newKills.toString();
     this.#killsText.updateText(false);
+  }
+
+  updateLevelsText(newLevels) {
+    this.#levelsText.text = newLevels.toString();
+    this.#levelsText.updateText(false);
   }
 
   die() {

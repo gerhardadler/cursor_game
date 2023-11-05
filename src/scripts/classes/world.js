@@ -28,6 +28,7 @@ export class World {
     size,
     pointsCallback,
     killsCallback,
+    levelsCallback,
     dieCallback
   ) {
     this.app = app;
@@ -39,6 +40,7 @@ export class World {
     this.level = Level.fromKills(this.#kills);
     this.pointsCallback = pointsCallback;
     this.killsCallback = killsCallback;
+    this.levelsCallback = levelsCallback;
     this.dieCallback = dieCallback;
   }
 
@@ -55,5 +57,6 @@ export class World {
   onKillsChange() {
     this.killsCallback(this.#kills);
     this.level = Level.fromKills(this.#kills);
+    this.levelsCallback(this.level.level);
   }
 }
