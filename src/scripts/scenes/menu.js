@@ -16,8 +16,8 @@ export default class MenuScene {
     const buttonSprite = PIXI.Sprite.from(startButton);
     buttonSprite.anchor.set(0.5, 0.5);
     const button = new Button(buttonSprite);
-    button.view.x = 300;
-    button.view.y = 530;
+    button.view.x = 450;
+    button.view.y = 580;
 
     button.onPress.connect(() =>
       this.coordinator.gotoScene(new GameScene(this.coordinator))
