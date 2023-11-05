@@ -111,8 +111,8 @@ class RandomSpawn {
 }
 
 export class EnemySpawner {
-  timePassed = 0;
-  spawnDelay = 0;
+  spawnWait = 0;
+  spawnFunctionWait = 0;
 
   constructor(world) {
     this.world = world;
@@ -120,8 +120,14 @@ export class EnemySpawner {
   }
 
   tick(delta) {
-    this.timePassed += delta;
-    if (this.timePassed > this.spawnDelay) {
+    this.spawnWait -= delta;
+    this.spawnFunctionWait -= delta;
+
+    if (this.spawnFunctionWait < 0) {
+      this.randomSpawn.randomSpawnFunction();
+      this.newSpawnFunctionWait();
+    }
+    if (this.spawnWait < 0) {
       this.world.enemies.push(
         new Enemy(
           this.world,
@@ -129,19 +135,27 @@ export class EnemySpawner {
           this.world.level.enemySpeed
         )
       );
-      this.timePassed = 0;
-      this.newSpawnDelay();
+      this.newSpawnWait();
     }
+
     for (const enemy of this.world.enemies) {
       enemy.tick(delta);
     }
   }
 
-  newSpawnDelay() {
-    this.spawnDelay =
+  newSpawnWait() {
+    this.spawnWait =
       this.world.level.minEnemySpawnDelay +
       Math.random() *
         (this.world.level.maxEnemySpawnDelay -
           this.world.level.minEnemySpawnDelay);
+  }
+
+  newSpawnFunctionWait() {
+    this.spawnFunctionWait =
+      this.world.level.minEnemySpawnDelay * 20 +
+      Math.random() *
+        (this.world.level.maxEnemySpawnDelay * 20 -
+          this.world.level.minEnemySpawnDelay * 20);
   }
 }
