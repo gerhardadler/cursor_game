@@ -72,7 +72,7 @@ export class GameScene {
     this.WORLD = new World(
       this.app,
       this.#container,
-      new Vector2D(600, 900),
+      new Vector2D(900, 900),
       this.updatePointsText,
       this.updateKillsText,
       this.die

@@ -2,7 +2,7 @@ import MenuScene from "./scenes/menu.js";
 import * as PIXI from "pixi.js";
 
 export default class Coordinator {
-  WIDTH = 600;
+  WIDTH = 900;
   HEIGHT = 900;
   constructor(window, body) {
     // Adjust the resolution for retina screens; along with
@@ -17,7 +17,7 @@ export default class Coordinator {
       height: this.HEIGHT,
       autoDensity: true, // Handles high DPI screens
       view: appContainer,
-      backgroundAlpha: 0,
+      backgroundAlpha: 1,
     });
 
     // appContainer.style
