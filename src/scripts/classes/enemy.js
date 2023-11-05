@@ -4,7 +4,7 @@ import { isColliding } from "../functions/colliding.js";
 import enemy1 from "/src/images/enemy1.png";
 
 class Enemy {
-  #prevDirection = new Vector2D(0.5, 0.5);
+  #prevMovement = new Vector2D(0.5, 0.5);
   #lerpFactor = 0.1;
   constructor(world, position, speed) {
     this.world = world;
@@ -21,7 +21,7 @@ class Enemy {
   tick(delta) {
     const targetDirection = this.getFollowDirection();
 
-    const interpolatedMovement = this.#prevDirection.lerp(
+    const interpolatedMovement = this.#prevMovement.lerp(
       targetDirection,
       this.#lerpFactor
     );
@@ -44,7 +44,7 @@ class Enemy {
       this.world.dieCallback();
     }
 
-    this.#prevDirection = newDirection;
+    this.#prevMovement = interpolatedMovement;
   }
 
   getFollowDirection() {
