@@ -15,15 +15,25 @@ export class GameScene {
     this.coordinator = coordinator;
 
     this.die = this.die.bind(this);
+    this.lockPointer = this.lockPointer.bind(this);
+    this.lockChange = this.lockChange.bind(this);
     this.updatePointsText = this.updatePointsText.bind(this);
     this.updateKillsText = this.updateKillsText.bind(this);
     this.updateLevelsText = this.updateLevelsText.bind(this);
 
-    this.app.view.addEventListener("mousedown", (e) => this.lockPointer);
+    this.app.view.addEventListener("mousedown", this.lockPointer);
+    document.addEventListener("pointerlockchange", this.lockChange);
   }
 
   lockPointer() {
     this.app.view.requestPointerLock();
+  }
+  lockChange() {
+    if (document.pointerLockElement === this.app.view) {
+      this.WORLD.paused = false;
+    } else {
+      this.WORLD.paused = true;
+    }
   }
 
   async onStart(container) {
@@ -66,9 +76,6 @@ export class GameScene {
   }
 
   onUpdate(delta) {
-    if (!this.getIsLocked()) {
-      return;
-    }
     if (this.WORLD === undefined) {
       return;
     }
@@ -90,10 +97,6 @@ export class GameScene {
       this.updateLevelsText,
       this.die
     );
-  }
-
-  getIsLocked() {
-    return document.pointerLockElement === this.app.view;
   }
 
   updatePointsText(newPoints) {

@@ -22,6 +22,8 @@ export class World {
     this.onKillsChange();
   }
 
+  paused = false;
+
   constructor(
     app,
     container,
@@ -45,6 +47,7 @@ export class World {
   }
 
   tick(delta) {
+    if (this.paused) return;
     this.mouse.tick(delta);
     this.enemySpawner.tick(delta);
     this.gameDuration += delta;

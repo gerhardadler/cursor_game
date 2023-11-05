@@ -14,16 +14,19 @@ export class Mouse {
     this.world.container.addChild(this.sprite);
 
     this.position = this.world.size.divide(2);
-    this.#startPosition = this.position.copy();
+    this.resetStartPosition();
 
     this.world.app.view.addEventListener("mousemove", (e) => {
+      if (this.world.paused) return;
       this.move(new Vector2D(e.movementX, e.movementY));
     });
 
     this.world.app.view.addEventListener("mousedown", async (e) => {
+      if (this.world.paused) return;
       this.onClick();
     });
     this.world.app.view.addEventListener("mouseup", (e) => {
+      if (this.world.paused) return;
       this.onRelease();
     });
   }
@@ -33,8 +36,12 @@ export class Mouse {
     this.position = this.position.clamp(new Vector2D(0, 0), this.world.size);
   }
 
-  onClick() {
+  resetStartPosition() {
     this.#startPosition = this.position.copy();
+  }
+
+  onClick() {
+    this.resetStartPosition();
   }
 
   onRelease() {
