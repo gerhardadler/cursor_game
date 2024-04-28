@@ -1,5 +1,5 @@
 import * as PIXI from "pixi.js";
-import bullet from "/src/images/bullet.png";
+import { bulletAsset } from "../assets.js";
 
 export class Bullet {
   #lifetime = 0;
@@ -7,7 +7,7 @@ export class Bullet {
   constructor(world, position, directionVector, speed) {
     this.world = world;
 
-    this.sprite = PIXI.Sprite.from(bullet);
+    this.sprite = PIXI.Sprite.from(bulletAsset);
     this.sprite.anchor.set(0.5);
     this.world.container.addChild(this.sprite);
 

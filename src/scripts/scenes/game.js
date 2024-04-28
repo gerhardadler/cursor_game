@@ -2,7 +2,7 @@ import * as PIXI from "pixi.js";
 import { World } from "/src/scripts/classes/world.js";
 import { Vector2D } from "/src/scripts/classes/vector.js";
 import { DeathScreenScene } from "./deathScreen";
-import gameBackground from "/src/images/game.png";
+import { gameBackgroundAsset } from "../assets.js";
 
 export class GameScene {
   WORLD;
@@ -21,15 +21,15 @@ export class GameScene {
     this.updateKillsText = this.updateKillsText.bind(this);
     this.updateLevelsText = this.updateLevelsText.bind(this);
 
-    this.app.view.addEventListener("mousedown", this.lockPointer);
+    this.app.canvas.addEventListener("mousedown", this.lockPointer);
     document.addEventListener("pointerlockchange", this.lockChange);
   }
 
   lockPointer() {
-    this.app.view.requestPointerLock();
+    this.app.canvas.requestPointerLock();
   }
   lockChange() {
-    if (document.pointerLockElement === this.app.view) {
+    if (document.pointerLockElement === this.app.canvas) {
       this.WORLD.paused = false;
     } else {
       this.WORLD.paused = true;
@@ -39,29 +39,38 @@ export class GameScene {
   async onStart(container) {
     this.#container = container;
 
-    const background = PIXI.Sprite.from(gameBackground);
+    const background = PIXI.Sprite.from(gameBackgroundAsset);
 
-    this.#pointsText = new PIXI.Text("0", {
-      fontFamily: "sans-serif",
-      fill: 0x4f4f4f,
-      fontSize: 24,
+    this.#pointsText = new PIXI.Text({
+      text: "0",
+      style: {
+        fontFamily: "sans-serif",
+        fill: 0x4f4f4f,
+        fontSize: 24,
+      },
     });
     this.#pointsText.x = 90;
     this.#pointsText.y = 46;
 
-    this.#killsText = new PIXI.Text("0", {
-      fontFamily: "sans-serif",
-      fill: 0x4f4f4f,
-      fontSize: 24,
+    this.#killsText = new PIXI.Text({
+      text: "0",
+      style: {
+        fontFamily: "sans-serif",
+        fill: 0x4f4f4f,
+        fontSize: 24,
+      },
     });
     this.#killsText.x = 228;
     this.#killsText.y = 46;
 
-    this.#levelsText = new PIXI.Text("1", {
-      fontFamily: "sans-serif",
-      fill: 0x575757,
-      fontSize: 24,
-      fontStyle: "bold",
+    this.#levelsText = new PIXI.Text({
+      text: "1",
+      style: {
+        fontFamily: "sans-serif",
+        fill: 0x575757,
+        fontSize: 24,
+        fontStyle: "bold",
+      },
     });
     this.#levelsText.x = 743;
     this.#levelsText.y = 46;
@@ -101,22 +110,22 @@ export class GameScene {
 
   updatePointsText(newPoints) {
     this.#pointsText.text = newPoints.toString();
-    this.#pointsText.updateText(false);
+    // this.#pointsText.updateText(false);
   }
 
   updateKillsText(newKills) {
     this.#killsText.text = newKills.toString();
-    this.#killsText.updateText(false);
+    // this.#killsText.updateText(false);
   }
 
   updateLevelsText(newLevels) {
     this.#levelsText.text = newLevels.toString();
-    this.#levelsText.updateText(false);
+    // this.#levelsText.updateText(false);
   }
 
   die() {
     document.exitPointerLock();
-    this.app.view.removeEventListener("mousedown", this.lockPointer);
+    this.app.canvas.removeEventListener("mousedown", this.lockPointer);
     this.coordinator.gotoScene(
       new DeathScreenScene(this.coordinator, this.WORLD.points)
     );

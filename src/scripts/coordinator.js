@@ -12,24 +12,27 @@ export default class Coordinator {
     // The PixiJS application instance
     const appContainer = document.getElementById("pixi");
 
-    this.app = new PIXI.Application({
-      width: this.WIDTH,
-      height: this.HEIGHT,
-      autoDensity: true, // Handles high DPI screens
-      view: appContainer,
-      backgroundAlpha: 0,
-    });
+    this.app = new PIXI.Application();
 
-    // appContainer.style
+    (async () => {
+      await this.app.init({
+        width: this.WIDTH,
+        height: this.HEIGHT,
+        autoDensity: true, // Handles high DPI screens
+        canvas: appContainer,
+        backgroundAlpha: 0,
+      });
+      // appContainer.style
 
-    // Add a handler for the updates
-    this.app.ticker.add(() => {
-      this.update(this.app.ticker.deltaMS);
-    });
+      // Add a handler for the updates
+      this.app.ticker.add(() => {
+        this.update(this.app.ticker.deltaMS);
+      });
 
-    // Load the menu scene initially; scenes get a reference
-    // back to the coordinator so they can trigger transitions
-    this.gotoScene(new MenuScene(this));
+      // Load the menu scene initially; scenes get a reference
+      // back to the coordinator so they can trigger transitions
+      this.gotoScene(new MenuScene(this));
+    })();
   }
 
   // Replace the current scene with the new one

@@ -1,7 +1,6 @@
 import * as PIXI from "pixi.js";
 import { Button } from "@pixi/ui";
-import dodgleHome from "/src/images/home.png";
-import startButton from "/src/images/start_button.png";
+import { startButtonAsset, dodgleHomeAsset } from "../assets.js";
 import { GameScene } from "./game.js";
 
 export default class MenuScene {
@@ -11,9 +10,9 @@ export default class MenuScene {
   }
 
   async onStart(container) {
-    const background = PIXI.Sprite.from(dodgleHome);
+    const background = PIXI.Sprite.from(dodgleHomeAsset);
 
-    const buttonSprite = PIXI.Sprite.from(startButton);
+    const buttonSprite = PIXI.Sprite.from(startButtonAsset);
     buttonSprite.anchor.set(0.5, 0.5);
     const button = new Button(buttonSprite);
     button.view.x = 450;

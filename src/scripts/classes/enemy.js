@@ -1,14 +1,14 @@
 import * as PIXI from "pixi.js";
 import { Vector2D } from "./vector.js";
 import { isColliding } from "../functions/colliding.js";
-import enemy1 from "/src/images/enemy1.png";
+import { enemy1Asset } from "../assets.js";
 
 export class Enemy {
   #prevMovement = new Vector2D(0.5, 0.5);
   #lerpFactor = 0.1;
   constructor(world, position, speed) {
     this.world = world;
-    this.sprite = PIXI.Sprite.from(enemy1);
+    this.sprite = PIXI.Sprite.from(enemy1Asset);
     this.sprite.anchor.set(0.5);
     this.world.container.addChild(this.sprite);
 

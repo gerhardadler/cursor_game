@@ -1,7 +1,7 @@
 import * as PIXI from "pixi.js";
 import { Button } from "@pixi/ui";
-import orjam from "/src/images/ørjam.jpg";
 import MenuScene from "./menu.js";
+import { orjamAsset } from "../assets.js";
 
 export class DeathScreenScene {
   constructor(coordinator, points) {
@@ -11,23 +11,29 @@ export class DeathScreenScene {
   }
 
   async onStart(container) {
-    const titleText = new PIXI.Text("Dead", {
-      fontFamily: "Roboto Mono",
-      fill: 0x000000,
-      fontSize: 62,
+    const titleText = new PIXI.Text({
+      text: "Dead",
+      style: {
+        fontFamily: "Roboto Mono",
+        fill: 0x000000,
+        fontSize: 62,
+      },
     });
     titleText.x = 35;
     titleText.y = 90;
 
-    const pointsText = new PIXI.Text(this.points, {
-      fontFamily: "Roboto Mono",
-      fill: 0x000000,
-      fontSize: 62,
+    const pointsText = new PIXI.Text({
+      text: this.points,
+      style: {
+        fontFamily: "Roboto Mono",
+        fill: 0x000000,
+        fontSize: 62,
+      },
     });
     pointsText.x = 35;
     pointsText.y = 150;
 
-    const button = new Button(PIXI.Sprite.from(orjam));
+    const button = new Button(PIXI.Sprite.from(orjamAsset));
     button.view.x = 35;
     button.view.y = 200;
 

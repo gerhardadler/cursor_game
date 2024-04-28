@@ -1,7 +1,7 @@
 import * as PIXI from "pixi.js";
 import { Vector2D } from "./vector.js";
 import { Bullet } from "./bullet.js";
-import mouse from "/src/images/mouse.png";
+import { mouseAsset } from "../assets.js";
 
 export class Mouse {
   bullets = [];
@@ -9,23 +9,23 @@ export class Mouse {
 
   constructor(world) {
     this.world = world;
-    this.sprite = PIXI.Sprite.from(mouse);
+    this.sprite = PIXI.Sprite.from(mouseAsset);
     this.sprite.anchor.set(0.5);
     this.world.container.addChild(this.sprite);
 
     this.position = this.world.size.divide(2);
     this.resetStartPosition();
 
-    this.world.app.view.addEventListener("mousemove", (e) => {
+    this.world.app.canvas.addEventListener("mousemove", (e) => {
       if (this.world.paused) return;
       this.move(new Vector2D(e.movementX, e.movementY));
     });
 
-    this.world.app.view.addEventListener("mousedown", async (e) => {
+    this.world.app.canvas.addEventListener("mousedown", async (e) => {
       if (this.world.paused) return;
       this.onClick();
     });
-    this.world.app.view.addEventListener("mouseup", (e) => {
+    this.world.app.canvas.addEventListener("mouseup", (e) => {
       if (this.world.paused) return;
       this.onRelease();
     });
